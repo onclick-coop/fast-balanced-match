@@ -1,0 +1,59 @@
+{
+  "name": "@onclick/fast-balanced-match",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/balanced.d.ts",
+        "default": "./dist/balanced.js"
+      },
+      "require": {
+        "types": "./dist/balanced.d.cts",
+        "default": "./dist/balanced.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "check": "vp check",
+    "typecheck": "tsc",
+    "test": "vp test",
+    "test:legacy": "vp test src/balanced.legacy.test.ts",
+    "test:coverage": "vp test --coverage",
+    "build": "vp pack",
+    "lint": "vp lint --deny-warnings --report-unused-disable-directives",
+    "prepack": "vp run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-istanbul": "catalog:",
+    "typescript": "^7.0.2",
+    "vite-plus": "catalog:"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "balanced-match",
+    "balanced",
+    "delimiters",
+    "match",
+    "parse"
+  ],
+  "description": "Finds the first balanced pair of delimiters in a string, a faster take on balanced-match with about half the memory",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onclick-coop/fast-balanced-match.git"
+  },
+  "homepage": "https://github.com/onclick-coop/fast-balanced-match#readme",
+  "bugs": {
+    "url": "https://github.com/onclick-coop/fast-balanced-match/issues"
+  },
+  "main": "./dist/balanced.cjs",
+  "module": "./dist/balanced.js",
+  "types": "./dist/balanced.d.ts"
+}
