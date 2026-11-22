@@ -21,7 +21,7 @@ jobs:
   # The tag follows the publish, so a version is tagged only once it has shipped.
   release:
     name: Create Release
-    needs: publish
+    needs: [publish-jsr, publish-npm]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -36,9 +36,34 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: scripts/ci/create-release.sh
 
-  # npm and JSR each trust this workflow through GitHub's OIDC token, so the job holds no registry secret.
-  publish:
-    name: Publish
+  # Each registry publishes in its own job from its own checkout, so the JSR CLI never shares an OIDC token, a secret or a workspace with the npm publish.
+  publish-jsr:
+    name: Publish to JSR
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+
+      - name: Set up Vite+
+        uses: voidzero-dev/setup-vp@cab1ab9eaff52d4857875f4f2c016e36af8f2c76 # v1.22.0
+        with:
+          node-version-file: .node-version
+          run-install: false
+
+      - name: Install dependencies
+        run: vp install --frozen-lockfile
+
+      - name: Publish to JSR
+        run: scripts/ci/publish-jsr.sh
+
+  publish-npm:
+    name: Publish to npm
     needs: check
     runs-on: ubuntu-latest
     permissions:
@@ -59,10 +84,6 @@ jobs:
 
       - name: Install dependencies
         run: vp install --frozen-lockfile
-
-      # JSR runs first and never sees NPM_TOKEN, since its CLI is third-party code fetched at run time.
-      - name: Publish to JSR
-        run: scripts/ci/publish-jsr.sh
 
       - name: Publish to npm
         env:

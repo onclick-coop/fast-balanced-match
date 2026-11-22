@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/node": "^26.6.6",
     "@vitest/coverage-istanbul": "catalog:",
+    "jsr": "0.14.3",
     "typescript": "^7.0.2",
     "vite-plus": "catalog:"
   },

@@ -12,4 +12,4 @@ if [ "$VERSION" != "$JSR_VERSION" ]; then
   exit 1
 fi
 
-vp dlx jsr publish
+vp exec jsr publish

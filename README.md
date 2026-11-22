@@ -109,6 +109,11 @@ vp run test
 The suite includes [`balanced-match`'s v5.0.0 tests](https://github.com/juliangruber/balanced-match/blob/v5.0.0/test/test.ts) with the same inputs and expected outputs.
 It also checks every result against a plain stack-based walk on 400,000 seeded random strings.
 
+## Pins
+
+The JSR CLI is pinned exactly, so the release runs the version the lockfile verified rather than whatever the registry serves at publish time.
+Raise it by reading the new version's changes, then updating the pin and the lockfile together.
+
 ## License
 
 [MIT](LICENSE), the same license as `balanced-match`.
