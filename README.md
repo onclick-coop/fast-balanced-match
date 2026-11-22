@@ -56,7 +56,7 @@ For the first non-nested matching pair in `str`, returns an object with these ke
 - **body** the text between them
 - **post** the text after the closing
 
-If `str` has more openings than closings, the first pair to close is used, so `{{a}` gives `body: 'a'`.
+If `str` has more openings than closings, the first closed pair is used, so `{{a}` gives `'a'`.
 
 ## Coming from balanced-match
 
@@ -78,7 +78,7 @@ It returns the same result for every input in `balanced-match`'s own tests, and 
 **Overlapping delimiters**
 
 - Where an opening and a closing start at the same place, the longer one wins.
-- `matcher('<', '</')('<a</b')` gives `body: 'a'`, where `balanced-match` also counts `</` as an opening.
+- `matcher('<', '</')('<a</b')` gives `'a'`, where `balanced-match` also counts `</` as an opening.
 
 **Sticky and global regexes**
 
@@ -98,7 +98,7 @@ It returns the same result for every input in `balanced-match`'s own tests, and 
 On an Apple M2 with Node 26, it runs 30% faster on short input, 12% faster on everyday input, and 4 to 7 times faster on deeply nested or unclosed input, and ties on regex delimiters.
 It allocates about half as much on everyday input and almost nothing on nested or unclosed input.
 
-[`fast-balanced-match-bench`](https://github.com/onclick-coop/fast-balanced-match-bench) has the workloads, full results, and how the speed-up was found.
+[`fast-balanced-match-bench`](https://github.com/onclick-coop/fast-balanced-match-bench) has the workloads and full results.
 
 ## Testing
 
