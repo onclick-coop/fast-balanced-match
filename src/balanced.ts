@@ -1,3 +1,4 @@
+/** A pair found in a string, with the text before, inside and after it. */
 export type BalancedMatch = {
   start: number
   end: number
@@ -181,9 +182,11 @@ const matchByRegex = (a: string | RegExp, b: string | RegExp, str: string): Bala
   return pair && matchOf(str, pair, ma.length, mb.length)
 }
 
+/** Finds the first balanced pair in a string, or `undefined` when it holds none. */
 export type Matcher = (str: string) => BalancedMatch | undefined
 
 // String delimiters settle their scan once, so each call of the matcher only scans.
+/** Returns a function that finds pairs of `a` and `b`, each a string or a regular expression. */
 export const matcher = (a: string | RegExp, b: string | RegExp): Matcher => {
   if (typeof a !== 'string' || typeof b !== 'string') return (str) => matchByRegex(a, b, str)
   // An empty delimiter marks nothing, so its matcher never finds a pair.
